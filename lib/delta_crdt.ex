@@ -44,6 +44,7 @@ defmodule DeltaCrdt do
           {:on_diffs, ([diff()] -> any()) | {module(), function(), [any()]}}
           | {:sync_interval, pos_integer()}
           | {:max_sync_size, pos_integer() | :infinite}
+          | {:name, GenServer.name()}
           | {:storage_module, DeltaCrdt.Storage.t()}
 
   @type crdt_options :: [crdt_option()]
@@ -55,6 +56,7 @@ defmodule DeltaCrdt do
   - `:sync_interval` - the delta CRDT will attempt to sync its local changes with its neighbours at this interval (specified in milliseconds). Default is 200.
   - `:on_diffs` - function which will be invoked on every diff
   - `:max_sync_size` - maximum size of synchronization (specified in number of items to sync)
+  - `:name` - name of the CRDT process
   - `:storage_module` - module which implements `DeltaCrdt.Storage` behaviour
   """
   @spec start_link(
